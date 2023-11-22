@@ -34,7 +34,7 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyReadonly2<T, K extends keyof T = keyof T> = Readonly<Pick<T, K>> & Omit<T, K>
+type MyReadonly2<T, K extends keyof T = keyof T> = {readonly [Key in keyof Pick<T, K>]: T[Key] } & Omit<T, K>
 
 /* _____________ Test Cases _____________ */
 import type { Alike, Expect } from '@type-challenges/utils'
