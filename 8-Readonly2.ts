@@ -33,8 +33,11 @@
 */
 
 /* _____________ Your Code Here _____________ */
+type Flatten<T> = {[Key in keyof T]: T[Key]}
+type MyReadonly2<T, K extends keyof T = keyof T> = Flatten<{ readonly [Key in keyof Pick<T, K>]: T[Key] } & Omit<T, K>>
 
-type MyReadonly2<T, K extends keyof T = keyof T> = {readonly [Key in keyof Pick<T, K>]: T[Key] } & Omit<T, K>
+type Case1 = MyReadonly2<Todo1, 'title' | 'description'>
+//    ^?
 
 /* _____________ Test Cases _____________ */
 import type { Alike, Expect } from '@type-challenges/utils'
