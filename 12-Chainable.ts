@@ -39,11 +39,16 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Chainable<T = object> = {
-  option<Key extends string, V>(key: Key, value: V): Chainable<Omit<T, Key> & Record<Key, V>>
-  get(): T
+type Flatten<T> = {[Key in keyof T]: T[Key]}
+
+type Chainable<T extends object = {}> = {
+  option<Key extends string, V>(key: Key extends keyof T ? never : Key, value: V): Chainable<Omit<T, Key> & Record<Key, V>>
+  get(): Flatten<T>
 }
 
+type res = typeof result1
+  // ^?
+  
 /* _____________ Test Cases _____________ */
 import type { Alike, Expect } from '@type-challenges/utils'
 
